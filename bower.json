@@ -1,0 +1,25 @@
+{
+  "name": "node-js-template",
+  "version": "1.0.0",
+  "description": "Set up a NodeJS Application",
+  "main": "client/index.html",
+  "private": true,
+  "authors": [
+    "danieljach@gmail.com"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.15",
+    "jquery": "~3.1.1",
+    "bootstrap": "~3.3.7",
+    "fontawesome": "~4.7.0",
+    "lodash": "~4.17.2"
+  }
+}

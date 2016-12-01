@@ -1,0 +1,47 @@
+{
+  "name": "NodeJSTemplate",
+  "version": "1.0.0",
+  "description": "Set up a NodeJS Application",
+  "repository": {
+    "type": "git",
+    "url": "git://www.danieljach.net:GitServer/NodeJSTemplate"
+  },
+  "private": true,
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "postinstall": "bower install"
+  },
+  "author": [
+    "danieljach@gmail.com"
+  ],
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "lodash": "^4.17.2",
+    "body-parser": "^1.15.2",
+    "helmet": "^3.1.0"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "bower-license": "^0.4.1",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-eslint": "^18.1.0",
+    "grunt-express-server": "^0.5.3",
+    "grunt-force-task": "^2.0.0",
+    "grunt-open": "^0.2.3",
+    "grunt-sync": "^0.6.2",
+    "grunt-text-replace": "^0.4.0",
+    "load-grunt-configs": "^1.0.0",
+    "load-grunt-tasks": "^3.4.1"
+  },
+  "engines": {
+    "node": "4.6.2"
+  }
+}
