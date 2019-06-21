@@ -2,7 +2,7 @@
 
 var express = require('express');
 var path = require('path');
-var config = require('../../config');
+var config = require('./../config');
 
 module.exports = function(app) {
   // Set up main page-load route.

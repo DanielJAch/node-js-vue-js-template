@@ -1,0 +1,12 @@
+// Core variables and mixins
+@import "variables.scss";
+@import "mixins.scss";
+
+// Third-party styles
+@import 'bootstrap';
+@import "~bootstrap-vue/src/index";
+// @import "../../bower_components/bootstrap/less/bootstrap.less";
+// @import "../../bower_components/fontawesome/less/font-awesome.less";
+
+// Custom styles
+@import "custom.scss";

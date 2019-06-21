@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-var config = require('../../config');
+var config = require('./../config');
 
 module.exports = {
   errorHandler : function (err, req, res, next) {  // eslint-disable-line no-unused-vars

@@ -7,7 +7,7 @@ console.log('------------Starting App in %s Environment------------', process.en
 
 var express = require('express');
 var https = require('https');
-var config = require('../config');
+var config = require('./config');
 var middleware = require('./core/middleware');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
