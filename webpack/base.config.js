@@ -1,5 +1,5 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
   const minimizeCss = env === 'production';
@@ -7,9 +7,8 @@ module.exports = (env) => {
   const hash = env === 'development' ? '' : '.[hash:7]';
   const bundleOutputDir = '../client/dist';
   const cssFileName = `site${chunkhash}.css`;
-  const extractCss = new ExtractTextPlugin(cssFileName);
   const HtmlWebpackPlugin = require('html-webpack-plugin');
-  const CleanWebpackPlugin = require('clean-webpack-plugin');
+  const { CleanWebpackPlugin } = require('clean-webpack-plugin');
   const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
   function resolve(dir, show) {
@@ -64,23 +63,34 @@ module.exports = (env) => {
           include: [resolve('src'), resolve('test')],
         },
         {
-          test: /\.(scss|css)$/,
-          use: extractCss.extract([
-              {
-                loader: 'css-loader',
-                options: {
-                  // minimize: minimizeCss,
-                  sourceMap: true
-                }
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  // minimize: minimizeCss,
-                  sourceMap: true
-                }
+          test: /\.(scss|sass|css)$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                // minimize: minimizeCss,
+                sourceMap: true
               }
-            ])
+            },
+            'css-loader',
+            'sass-loader'
+          ]
+          // use: extractCss.extract([
+          //     {
+          //       loader: 'css-loader',
+          //       options: {
+          //         // minimize: minimizeCss,
+          //         sourceMap: true
+          //       }
+          //     },
+          //     {
+          //       loader: 'sass-loader',
+          //       options: {
+          //         // minimize: minimizeCss,
+          //         sourceMap: true
+          //       }
+          //     }
+          //   ])
         },
         {
           test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -110,7 +120,9 @@ module.exports = (env) => {
     },
 
     plugins: [
-      extractCss,
+      new MiniCssExtractPlugin({
+        filename: cssFileName
+      }),
       new VueLoaderPlugin(),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({

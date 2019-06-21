@@ -16,32 +16,4 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-
-  <!-- <nav class="navbar navbar-default navbar-static-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="main-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">
-        <img alt="NodeJS" src="/img/nodejs.png" class="nodejs-medium-icon" />
-        NodeJS Template Application
-      </a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link 1</a></li>
-        <li><a href="#">Link 2</a></li>
-        <li><a href="#">Link 3</a></li>
-        <li><a href="#">Link 4</a></li>
-        <li><a href="#">Link 5</a></li>
-      </ul>
-    </div>
-  </div>
-  </nav> -->
 </template>
