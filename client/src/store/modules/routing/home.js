@@ -1,12 +1,12 @@
-import lazyLoading from './lazyLoading';
+import HomeComponent from '@/components/home';
 
 export default {
   name: 'home',
   path: '/',
-  component: lazyLoading('home'),
+  component: HomeComponent,
   meta: {
     title: 'Home',
-    // iconClass: 'fa fa-home',
+    iconClass: 'fa fa-home',
     requiresAuthentication: false,
     omitFromMenu: true
   }

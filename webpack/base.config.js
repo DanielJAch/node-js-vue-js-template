@@ -58,6 +58,16 @@ module.exports = (env) => {
           },
         },
         {
+          enforce: "pre",
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: "eslint-loader",
+          options: {
+            // eslint options (if necessary)
+            formatter: require("eslint-friendly-formatter")
+          }
+        },
+        {
           test: /\.js$/,
           loader: 'babel-loader',
           include: [resolve('src'), resolve('test')],

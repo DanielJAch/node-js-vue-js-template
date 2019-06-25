@@ -3,10 +3,9 @@
 @import "mixins.scss";
 
 // Third-party styles
-@import 'bootstrap';
 @import "~bootstrap-vue/src/index";
-// @import "../../bower_components/bootstrap/less/bootstrap.less";
-// @import "../../bower_components/fontawesome/less/font-awesome.less";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~@fortawesome/fontawesome-free/css/all.css";
 
 // Custom styles
 @import "custom.scss";

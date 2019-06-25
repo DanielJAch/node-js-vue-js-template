@@ -1,9 +1,10 @@
-import Vue from 'vue';
 import home from './home';
+import navigation from './navigation';
 
 const state = {
   routes: [
-    home
+    home,
+    navigation
   ]
 };
 

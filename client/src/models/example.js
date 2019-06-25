@@ -12,4 +12,4 @@ export default class Example {
       description: this.description
     };
   }
-};
+}

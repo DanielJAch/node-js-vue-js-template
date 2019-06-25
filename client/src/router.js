@@ -17,7 +17,6 @@ function generateRoutes(source = [], routes = []) {
   return routes;
 }
 
-const HomeComponent = () => System.import('./components/home');
 const routes = generateRoutes(routingModule.state.routes);
 
 routes.push({ path: '*', redirect: { name: 'default' } });
