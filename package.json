@@ -4,7 +4,7 @@
   "description": "Set up a NodeJS Application",
   "repository": {
     "type": "git",
-    "url": "git://www.danieljach.net:GitServer/NodeJSTemplate"
+    "url": "https://github.com/DanielJAch/node-js-template.git"
   },
   "private": true,
   "main": "server/app.js",
@@ -12,6 +12,9 @@
     "start": "node server/app.js",
     "watch": "webpack --watch",
     "build": "webpack --config ./webpack/dev.config.js",
+    "build-test": "webpack --config ./webpack/test.config.js",
+    "build-staging": "webpack --config ./webpack/staging.config.js",
+    "build-prod": "webpack --config ./webpack/prod.config.js",
     "build:watch": "webpack --watch --config ./webpack/dev.config.js",
     "clean": "rmdir /s /q node_modules",
     "reinstall": "npm run clean && npm install",
@@ -35,6 +38,7 @@
   "devDependencies": {
     "acorn": "^6.1.1",
     "clean-webpack-plugin": "3.0.0",
+    "compression-webpack-plugin": "3.0.0",
     "css-loader": "^3.0.0",
     "eslint": "^6.0.1",
     "eslint-friendly-formatter": "^4.0.1",
@@ -46,6 +50,7 @@
     "mini-css-extract-plugin": "0.7.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
+    "terser-webpack-plugin": "^1.3.0",
     "url-loader": "^2.0.0",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10",

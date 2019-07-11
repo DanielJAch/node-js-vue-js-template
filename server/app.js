@@ -1,7 +1,7 @@
 'use strict';
 
-const PORT = process.env.PORT || 5000;
-const PORT_HTTPS = process.env.PORT_HTTPS || 5001;
+const PORT = process.env.PORT || 22974;
+const PORT_HTTPS = process.env.PORT_HTTPS || 22974;
 const HOST = process.env.HOST || 'localhost';
 
 console.log('------------Starting App in %s Environment------------', process.env.NODE_ENV);

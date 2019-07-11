@@ -9,8 +9,8 @@ module.exports = merge(baseWebpackConfig('development'), {
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.dev.env,
-      '_config.urls': config.dev.urls
+      'process.env': config.test.env,
+      '_config.urls': config.test.urls
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin()
