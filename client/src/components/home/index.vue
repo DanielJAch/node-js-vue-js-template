@@ -4,10 +4,10 @@
       <div class="container-fluid">
         <h1>
           <img alt="NodeJS" src="/img/nodejs.png" class="nodejs-small" />
-          NodeJS Template Application
+          NodeJS/VueJS Template Application
         </h1>
         <p>
-          Boilerplate Application for NodeJS
+          Boilerplate Application for NodeJS and VueJS
         </p>
       </div>
     </header>

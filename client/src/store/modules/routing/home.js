@@ -8,6 +8,6 @@ export default {
     title: 'Home',
     iconClass: 'fa fa-home',
     requiresAuthentication: false,
-    omitFromMenu: true
+    omitFromMenu: false
   }
 };
