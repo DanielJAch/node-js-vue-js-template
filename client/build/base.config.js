@@ -1,17 +1,17 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = (env) => {
   const minimizeCss = env === 'production';
   const chunkhash = env === 'development' ? '' : '.[chunkhash:7]';
   const hash = env === 'development' ? '' : '.[hash:7]';
-  const bundleOutputDir = '../client/dist';
+  const bundleOutputDir = '../dist';
   const cssFileName = `site${chunkhash}.css`;
-  const HtmlWebpackPlugin = require('html-webpack-plugin');
-  const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-  const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-  function resolve(dir, show) {
+  function resolve(dir) {
     return path.join(__dirname, '..', dir);
   }
 
@@ -27,9 +27,9 @@ module.exports = (env) => {
 
     entry: {
       'main': [
-        resolve('./client/src/app.js'),
-        resolve('./node_modules/bootstrap-vue/dist/bootstrap-vue.js'),
-        resolve('./client/src/styles/core.scss')
+        resolve('/src/app.js'),
+        resolve('../node_modules/bootstrap-vue/dist/bootstrap-vue.js'),
+        resolve('/src/styles/core.scss')
       ]
     },
 
@@ -39,12 +39,18 @@ module.exports = (env) => {
       publicPath: '/dist/'
     },
 
+    optimization: {
+      splitChunks: {
+        chunks: 'all'
+      }
+    },
+
     resolve: {
       extensions: ['.js', '.vue', '.json'],
       alias: {
         'vue$': 'vue/dist/vue.js',
-        '@': resolve('./client/src', true)
-      },
+        '@': resolve('/src', true)
+      }
     },
 
     module: {
@@ -54,23 +60,18 @@ module.exports = (env) => {
           loader: 'vue-loader',
           options: {
             'scss': 'vue-style-loader!css-loader!sass-loader',
-            'sass': 'vue-style-loader!css-loader!sass-loader!indentedSyntax',
-          },
-        },
-        {
-          enforce: "pre",
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: "eslint-loader",
-          options: {
-            // eslint options (if necessary)
-            formatter: require("eslint-friendly-formatter")
+            'sass': 'vue-style-loader!css-loader!sass-loader!indentedSyntax'
           }
         },
         {
+          enforce: 'pre',
           test: /\.js$/,
-          loader: 'babel-loader',
-          include: [resolve('src'), resolve('test')],
+          exclude: /node_modules/,
+          loader: 'eslint-loader',
+          options: {
+            // eslint options (if necessary)
+            formatter: require('eslint-friendly-formatter')
+          }
         },
         {
           test: /\.(scss|sass|css)$/,
@@ -78,53 +79,37 @@ module.exports = (env) => {
             {
               loader: MiniCssExtractPlugin.loader,
               options: {
-                // minimize: minimizeCss,
+                minimize: minimizeCss,
                 sourceMap: true
               }
             },
             'css-loader',
             'sass-loader'
           ]
-          // use: extractCss.extract([
-          //     {
-          //       loader: 'css-loader',
-          //       options: {
-          //         // minimize: minimizeCss,
-          //         sourceMap: true
-          //       }
-          //     },
-          //     {
-          //       loader: 'sass-loader',
-          //       options: {
-          //         // minimize: minimizeCss,
-          //         sourceMap: true
-          //       }
-          //     }
-          //   ])
         },
         {
           test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
           loader: 'url-loader',
           options: {
             limit: 3000,
-            name: assetsPath(`img/[name]${hash}.[ext]`),
-          },
+            name: assetsPath(`img/[name]${hash}.[ext]`)
+          }
         },
         {
           test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: assetsPath(`media/[name]${hash}.[ext]`),
-          },
+            name: assetsPath(`media/[name]${hash}.[ext]`)
+          }
         },
         {
           test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: assetsPath(`fonts/[name]${hash}.[ext]`),
-          },
+            name: assetsPath(`fonts/[name]${hash}.[ext]`)
+          }
         }
       ]
     },

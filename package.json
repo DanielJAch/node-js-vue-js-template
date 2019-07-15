@@ -1,7 +1,7 @@
 {
   "name": "NodeJSTemplate",
   "version": "2.0.0",
-  "description": "Set up a NodeJS Application",
+  "description": "Set up a NodeJS/VueJS Application",
   "repository": {
     "type": "git",
     "url": "https://github.com/DanielJAch/node-js-template.git"
@@ -11,11 +11,11 @@
   "scripts": {
     "start": "node server/app.js",
     "watch": "webpack --watch",
-    "build": "webpack --config ./webpack/dev.config.js",
-    "build-test": "webpack --config ./webpack/test.config.js",
-    "build-staging": "webpack --config ./webpack/staging.config.js",
-    "build-prod": "webpack --config ./webpack/prod.config.js",
-    "build:watch": "webpack --watch --config ./webpack/dev.config.js",
+    "build": "webpack --config ./client/build/dev.config.js",
+    "build-test": "webpack --config ./client/build/test.config.js",
+    "build-staging": "webpack --config ./client/build/staging.config.js",
+    "build-prod": "webpack --config ./client/build/prod.config.js",
+    "build:watch": "webpack --watch --config ./client/build/dev.config.js",
     "clean": "rmdir /s /q node_modules",
     "reinstall": "npm run clean && npm install",
     "rebuild": "npm run clean && npm install && npm run build"

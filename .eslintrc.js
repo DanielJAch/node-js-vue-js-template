@@ -10,15 +10,15 @@
 // NOTE: Some of the rules below are commented out.  We should discuss these as a team, and figure out which ones we want to enable as the default ow-labs ruleset.  Then we'll remove the rest.
 module.exports = {
     parserOptions: {
-        sourceType: "module",
+        sourceType: 'module'
     },
     rules: {
-
         // visual formatting //
-        indent: [1, 2, { "SwitchCase": 1 }],  // warnings-only, 2-space indents.
+        indent: [1, 2, { 'SwitchCase': 1 }],  // warnings-only, 2-space indents.
         quotes: [2, 'single'],
         'linebreak-style': [2, 'windows'],
         semi: [2, 'always'],
+
         // Prevent bugs //
         'no-dupe-args': 2,
         'no-dupe-keys': 2,
@@ -47,14 +47,13 @@ module.exports = {
         eqeqeq: [2, 'allow-null'],
         'no-caller': 2,
         'no-case-declarations': 2,
-        'no-labels': 2,
         'no-empty-pattern': 2,
         'no-eval': 2,
         'no-extra-bind': 2,
         'no-fallthrough': 2,
         'no-implicit-coercion': [2, { boolean: false, number: true, string: true }],
         'no-implied-eval': 2,
-        'no-invalid-this': 0,
+        'no-invalid-this': 2,
         'no-iterator': 2,
         'no-labels': 2,
         'no-lone-blocks': 2,
@@ -90,6 +89,7 @@ module.exports = {
         'no-undef': 2,
         'no-unused-vars': [2, { args: 'after-used' }],
         'no-use-before-define': [2, 'nofunc'],
+
         // Node-specific //
         'global-require': 2,
         'handle-callback-err': 2,
@@ -104,10 +104,6 @@ module.exports = {
     globals: {
         document: true,
         window: true,
-        jQuery: true,
-        $: true,
-        requirejs: true,
-        define: true,
-        require: true
+        _config: true
     }
 };

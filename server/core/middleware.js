@@ -1,13 +1,13 @@
 'use strict';
 
-var _ = require('lodash');
-var config = require('./../config');
+const _ = require('lodash');
+const config = require('./../config');
 
 module.exports = {
   errorHandler : function (err, req, res, next) {  // eslint-disable-line no-unused-vars
     // logger.error('SERVER ERROR:', err);
 
-    var body;
+    let body;
     if (_.isObject(err)) {
       body = {
         name: err.name,

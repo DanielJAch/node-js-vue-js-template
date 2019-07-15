@@ -1,18 +1,5 @@
 import axios, { CancelToken } from 'axios';
 import config from '@/config';
-// import { getUserAccessToken } from '@/utilities';
-
-const getUrl = function(options) {
-  return (options && options.pathMod)
-    ? `${this.baseUrl}/${options.pathMod}/${this.defaultPath}`
-    : this.defaultUrl;
-};
-
-const getAuthHeader = function() {
-  return {
-    // 'x-access-token': getUserAccessToken()
-  };
-};
 
 export default class BaseService {
   constructor(path, type) {
@@ -20,6 +7,18 @@ export default class BaseService {
     this.defaultPath = path;
     this.defaultUrl = `${this.baseUrl}/${this.defaultPath}`;
     this.type = type;
+
+    this.getUrl = function(options) {
+      return (options && options.pathMod)
+        ? `${this.baseUrl}/${options.pathMod}/${this.defaultPath}`
+        : this.defaultUrl;
+    };
+
+    this.getAuthHeader = function() {
+      return {
+        // 'x-access-token': ''
+      };
+    };
   }
 
   getCancelTokenSource() {
@@ -38,12 +37,12 @@ export default class BaseService {
   }
 
   query(parameters, options) {
-    const url = getUrl.call(this, options);
+    const url = this.getUrl(options);
     const qs = parameters ? parameters.toQueryString() : '';
     const Type = this.type;
 
     return new Promise((resolve, reject) => {
-      axios.get(`${url}${qs}`, {}, getAuthHeader())
+      axios.get(`${url}${qs}`, {}, this.getAuthHeader())
         .then((response) => {
           this.listResolver(resolve, response, Type);
         })
@@ -52,41 +51,41 @@ export default class BaseService {
   }
 
   get(id, options) {
-    const url = getUrl.call(this, options);
+    const url = this.getUrl(options);
     const Type = this.type;
 
     return new Promise((resolve, reject) => {
-      axios.get(`${url}/${id}`, {}, getAuthHeader())
+      axios.get(`${url}/${id}`, {}, this.getAuthHeader())
         .then(response => resolve(new Type(response.data)))
         .catch(err => reject(err));
     });
   }
 
   create(item, options) {
-    const url = getUrl.call(this, options);
+    const url = this.getUrl(options);
 
     return new Promise((resolve, reject) => {
-      axios.post(`${url}`, item, getAuthHeader())
+      axios.post(`${url}`, item, this.getAuthHeader())
         .then(response => resolve(response.data))
         .catch(err => reject(err));
     });
   }
 
   update(id, item, options) {
-    const url = getUrl.call(this, options);
+    const url = this.getUrl(options);
 
     return new Promise((resolve, reject) => {
-      axios.put(`${url}/${id}`, item, getAuthHeader())
+      axios.put(`${url}/${id}`, item, this.getAuthHeader())
         .then(response => resolve(response.data))
         .catch(err => reject(err));
     });
   }
 
   delete(id, options) {
-    const url = getUrl.call(this, options);
+    const url = this.getUrl(options);
 
     return new Promise((resolve, reject) => {
-      axios.delete(`${url}/${id}`, {}, getAuthHeader())
+      axios.delete(`${url}/${id}`, {}, this.getAuthHeader())
         .then(response => resolve(response.data))
         .catch(err => reject(err));
     });

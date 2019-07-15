@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="container-fluid">
-      NodeJS Application Template v1.0
+      NodeJS/VueJS Application Template v1.0
     </div>
   </footer>
 </template>
