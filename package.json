@@ -1,10 +1,10 @@
 {
-  "name": "NodeJSTemplate",
+  "name": "NodeJSVueJSTemplate",
   "version": "2.0.0",
   "description": "Set up a NodeJS/VueJS Application",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DanielJAch/node-js-template.git"
+    "url": "https://github.com/DanielJAch/node-js-vue-js-template.git"
   },
   "private": true,
   "main": "server/app.js",
