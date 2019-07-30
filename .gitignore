@@ -53,3 +53,5 @@ dev.json
 staging.json
 production.json
 .vscode/launch.json
+server/ssl/server.key
+server/ssl/server.cert
