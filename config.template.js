@@ -30,6 +30,10 @@ module.exports = {
     urls: {
       api: '"https://www.myproductionurl.com/api"',
       web: '"https://www.myproductionurl.com"'
+    },
+    ssl: {
+      key: __dirname + '/server/ssl/server.key',
+      cert: __dirname + '/server/ssl/server.cert'
     }
   },
   staging: {
@@ -42,6 +46,10 @@ module.exports = {
     urls: {
       api: '"https://www.mystagingurl.com/api"',
       web: '"https://www.mystagingurl.com"'
+    },
+    ssl: {
+      key: __dirname + '/server/ssl/server.key',
+      cert: __dirname + '/server/ssl/server.cert'
     }
   },
   test: {
@@ -54,6 +62,10 @@ module.exports = {
     urls: {
       api: '"https://www.testurl.com/api"',
       web: '"https://www.testurl.com"'
+    },
+    ssl: {
+      key: __dirname + '/server/ssl/server.key',
+      cert: __dirname + '/server/ssl/server.cert'
     }
   },
   dev: {
@@ -66,6 +78,10 @@ module.exports = {
     urls: {
       api: '"https://localhost:22975/api"',
       web: '"https://localhost:22975"'
+    },
+    ssl: {
+      key: __dirname + '/server/ssl/server.key',
+      cert: __dirname + '/server/ssl/server.cert'
     }
   },
   unittest: {

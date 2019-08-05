@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const app = express();
 const config = require('../config');
+let certLocation = null;
+let certKeyLocation = null;
 
 switch (config.env.NODE_ENV) {
   case '"prod"':
@@ -16,6 +18,8 @@ switch (config.env.NODE_ENV) {
     process.env.PORT = config.prod.env.PORT;
     process.env.PORT_HTTPS = config.prod.env.PORT_HTTPS;
     process.env.HOST = config.prod.env.HOST;
+    certLocation = config.prod.ssl.cert;
+    certKeyLocation = config.prod.ssl.key;
     break;
   case '"staging"':
   case 'staging':
@@ -23,6 +27,8 @@ switch (config.env.NODE_ENV) {
     process.env.PORT = config.staging.env.PORT;
     process.env.PORT_HTTPS = config.staging.env.PORT_HTTPS;
     process.env.HOST = config.staging.env.HOST;
+    certLocation = config.staging.ssl.cert;
+    certKeyLocation = config.staging.ssl.key;
     break;
   case '"test"':
   case 'test':
@@ -30,12 +36,16 @@ switch (config.env.NODE_ENV) {
     process.env.PORT = config.test.env.PORT;
     process.env.PORT_HTTPS = config.test.env.PORT_HTTPS;
     process.env.HOST = config.test.env.HOST;
+    certLocation = config.test.ssl.cert;
+    certKeyLocation = config.test.ssl.key;
     break;
   default:
     process.env.NODE_ENV = config.dev.env.NODE_ENV;
     process.env.PORT = config.dev.env.PORT;
     process.env.PORT_HTTPS = config.dev.env.PORT_HTTPS;
     process.env.HOST = config.dev.env.HOST;
+    certLocation = config.dev.ssl.cert;
+    certKeyLocation = config.dev.ssl.key;
     break;
 };
 
@@ -64,8 +74,8 @@ const server = app.listen(process.env.PORT, process.env.HOST, function() {
 });
 
 https.createServer({
-  key: fs.readFileSync(__dirname + '/ssl/server.key'),
-  cert: fs.readFileSync(__dirname + '/ssl/server.cert')
+  key: fs.readFileSync(certKeyLocation),
+  cert: fs.readFileSync(certLocation)
 }, app)
   .listen(process.env.PORT_HTTPS, function () {
     console.log('Express server listening at https://%s:%s', process.env.HOST, process.env.PORT_HTTPS);
