@@ -11,18 +11,21 @@ const config = require('../config');
 
 switch (config.env.NODE_ENV) {
   case '"prod"':
+  case 'prod':
     process.env.NODE_ENV = config.prod.env.NODE_ENV;
     process.env.PORT = config.prod.env.PORT;
     process.env.PORT_HTTPS = config.prod.env.PORT_HTTPS;
     process.env.HOST = config.prod.env.HOST;
     break;
   case '"staging"':
+  case 'staging':
     process.env.NODE_ENV = config.staging.env.NODE_ENV;
     process.env.PORT = config.staging.env.PORT;
     process.env.PORT_HTTPS = config.staging.env.PORT_HTTPS;
     process.env.HOST = config.staging.env.HOST;
     break;
   case '"test"':
+  case 'test':
     process.env.NODE_ENV = config.test.env.NODE_ENV;
     process.env.PORT = config.test.env.PORT;
     process.env.PORT_HTTPS = config.test.env.PORT_HTTPS;
