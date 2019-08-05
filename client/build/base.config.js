@@ -121,7 +121,8 @@ module.exports = (env) => {
       new VueLoaderPlugin(),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        title: ''
+        title: '',
+        template: './client/src/index.html'
       })
     ]
   };

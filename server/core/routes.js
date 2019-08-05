@@ -6,7 +6,7 @@ var path = require('path');
 module.exports = function(app) {
   // Set up main page-load route.
   app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../../client/index.html'))
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'))
   });
 
   // Set up static files.
