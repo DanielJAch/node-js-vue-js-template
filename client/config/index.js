@@ -17,7 +17,7 @@ module.exports = {
       PORT_HTTPS: 443
     },
     urls: {
-      api: '"https://api.myproductionurl.com"',
+      api: '"https://api.myproductionurl.com/api"',
       web: '"https://www.myproductionurl.com"'
     }
   },
@@ -28,7 +28,7 @@ module.exports = {
       PORT_HTTPS: 443
     },
     urls: {
-      api: '"https://api.mystagingurl.com"',
+      api: '"https://api.mystagingurl.com/api"',
       web: '"https://www.mystagingurl.com"'
     }
   },
@@ -39,7 +39,7 @@ module.exports = {
       PORT_HTTPS: 443
     },
     urls: {
-      api: '"https://api.testurl.com"',
+      api: '"https://api.testurl.com/api"',
       web: '"https://www.testurl.com"'
     }
   },
@@ -47,11 +47,11 @@ module.exports = {
     env: {
       NODE_ENV: '"development"',
       PORT: 22974,
-      PORT_HTTPS: 22974
+      PORT_HTTPS: 22975
     },
     urls: {
-      api: '"http://localhost:22974"',
-      web: '"http://localhost:22974/api"'
+      api: '"https://localhost:22975/api"',
+      web: '"https://localhost:22975"'
     }
   },
   unittest: {
