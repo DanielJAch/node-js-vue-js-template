@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const config = require('./../config');
+const config = require('../../config');
 
 module.exports = {
   errorHandler : function (err, req, res, next) {  // eslint-disable-line no-unused-vars
@@ -29,7 +29,7 @@ module.exports = {
       return res.redirect('/login');
     }
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === '"development"' || process.env.NODE_ENV === '"test"') {
     // Debug error messages
       res.send(body);
     } else {

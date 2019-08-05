@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-const config = require('../config');
+const config = require('../../config');
 const baseWebpackConfig = require('./base.config');
 
 module.exports = merge(baseWebpackConfig('development'), {

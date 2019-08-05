@@ -1,9 +1,10 @@
 import axios, { CancelToken } from 'axios';
-import config from '@/config';
+
+const apiUrl = _config.urls.api;
 
 export default class BaseService {
   constructor(path, type) {
-    this.baseUrl = `${config.apiUrl}`;
+    this.baseUrl = `${apiUrl}`;
     this.defaultPath = path;
     this.defaultUrl = `${this.baseUrl}/${this.defaultPath}`;
     this.type = type;
