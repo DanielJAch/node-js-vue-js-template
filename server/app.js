@@ -11,7 +11,9 @@ const config = require('../config');
 let certLocation = null;
 let certKeyLocation = null;
 
-switch (config.env.NODE_ENV) {
+switch (config.env) {
+  case '"production"':
+  case 'production':
   case '"prod"':
   case 'prod':
     process.env.NODE_ENV = config.prod.env.NODE_ENV;
