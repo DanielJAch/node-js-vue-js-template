@@ -64,7 +64,7 @@ app.use(helmet.frameguard('deny'));
 // Disable etag support for API routes.
 app.disable('etag');
 
-require('./core/routes')(app);
+require('./core/routes')(app, middleware.checkAuthentication);
 
 // Error Handling (must be the last middleware / app.use() call)
 app.use(middleware.errorHandler);
