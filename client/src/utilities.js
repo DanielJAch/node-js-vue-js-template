@@ -1,6 +1,8 @@
 import { isPlainObject, isFunction, isArray, isString, isNumber, toString, some } from 'lodash';
 import moment from 'moment';
 
+const USER_TOKEN_KEY = 'USER_TOKEN_KEY';
+
 export const isBlank = (str) => {
   if (str != null) {
     for (var i = 0; i < str.length; i++) {
@@ -162,4 +164,12 @@ export const formatElapsedTime = (duration) => {
   }
 
   return null;
+};
+
+export const getUserAccessToken = () => {
+  return getFromLocalStorage(USER_TOKEN_KEY);
+};
+
+export const setUserAccessToken = (token) => {
+  return saveToLocalStorage(USER_TOKEN_KEY, token);
 };

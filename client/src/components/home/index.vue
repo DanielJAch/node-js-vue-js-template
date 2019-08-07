@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import authExampleService from '@/services/authenticatedExample.service'
 import exampleService from '@/services/example.service'
 
 export default {
@@ -126,7 +127,18 @@ export default {
   created() {
     exampleService.query()
       .then((result) => {
-        console.log('API REQUEST FINISHED');
+        console.log('EXAMPLE API REQUEST FINISHED');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    authExampleService.query()
+      .then((result) => {
+        console.log('AUTHENTICATED EXAMPLE API REQUEST FINISHED');
+      })
+      .catch((err) => {
+        console.log(err.toJSON());
       });
   }
 };

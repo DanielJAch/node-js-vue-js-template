@@ -1,4 +1,5 @@
 import axios, { CancelToken } from 'axios';
+import { getUserAccessToken } from '@/utilities';
 
 const apiUrl = _config.urls.api;
 
@@ -9,6 +10,8 @@ export default class BaseService {
     this.defaultUrl = `${this.baseUrl}/${this.defaultPath}`;
     this.type = type;
 
+    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
     this.getUrl = function(options) {
       return (options && options.pathMod)
         ? `${this.baseUrl}/${options.pathMod}/${this.defaultPath}`
@@ -17,7 +20,7 @@ export default class BaseService {
 
     this.getAuthHeader = function() {
       return {
-        // 'x-access-token': ''
+        'x-access-token': getUserAccessToken()
       };
     };
   }

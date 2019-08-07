@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var auth = require('../api/auth');
 var example = require('../api/example');
-var authExample = require('../api/authenticated-example');
+var authExample = require('../api/authenticatedExample');
 
 module.exports = function(app, checkAuthentication) {
   // Set up main page-load route.

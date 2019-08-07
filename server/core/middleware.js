@@ -35,6 +35,7 @@ const errorHandler = (err, req, res, next) => { // eslint-disable-line no-unused
   res.status(err.status || 500);
 
   //if the user was not logged in, and this was not an AJAX request, redirect to login
+  // TODO: You may want to change this depending on how you set up your authentication process!!
   if(err.status === 401 && !req.xhr) {
     return res.redirect('/login');
   }
