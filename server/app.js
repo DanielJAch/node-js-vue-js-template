@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const https = require('https');
 const fs = require('fs');
@@ -49,7 +47,7 @@ switch (config.env) {
     certLocation = config.dev.ssl.cert;
     certKeyLocation = config.dev.ssl.key;
     break;
-};
+}
 
 console.log('------------Starting App in %s Environment------------', process.env.NODE_ENV);
 
@@ -71,9 +69,9 @@ require('./core/routes')(app);
 // Error Handling (must be the last middleware / app.use() call)
 app.use(middleware.errorHandler);
 
-const server = app.listen(process.env.PORT, process.env.HOST, function() {
-  console.log('Express server listening at http://%s:%s', process.env.HOST, process.env.PORT);
-});
+// const server = app.listen(process.env.PORT, process.env.HOST, function() {
+//   console.log('Express server listening at http://%s:%s', process.env.HOST, process.env.PORT);
+// });
 
 https.createServer({
   key: fs.readFileSync(certKeyLocation),

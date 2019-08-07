@@ -1,5 +1,6 @@
 // Copy this file and save it in the same directory as "config.js". Then, change the values below
 // to specify the values unique to your development, testing, staging, and production environments.
+const path = require('path');
 
 module.exports = {
   errorEmailAddress: '',
@@ -32,8 +33,8 @@ module.exports = {
       web: '"https://www.myproductionurl.com"'
     },
     ssl: {
-      key: __dirname + '/server/ssl/server.key',
-      cert: __dirname + '/server/ssl/server.cert'
+      key: path.join(__dirname, '/server/ssl/server.key'),
+      cert: path.join(__dirname, '/server/ssl/server.cert')
     }
   },
   staging: {
@@ -48,8 +49,8 @@ module.exports = {
       web: '"https://www.mystagingurl.com"'
     },
     ssl: {
-      key: __dirname + '/server/ssl/server.key',
-      cert: __dirname + '/server/ssl/server.cert'
+      key: path.join(__dirname, '/server/ssl/server.key'),
+      cert: path.join(__dirname, '/server/ssl/server.cert')
     }
   },
   test: {
@@ -64,8 +65,8 @@ module.exports = {
       web: '"https://www.testurl.com"'
     },
     ssl: {
-      key: __dirname + '/server/ssl/server.key',
-      cert: __dirname + '/server/ssl/server.cert'
+      key: path.join(__dirname, '/server/ssl/server.key'),
+      cert: path.join(__dirname, '/server/ssl/server.cert')
     }
   },
   dev: {
@@ -80,8 +81,8 @@ module.exports = {
       web: '"https://localhost:22975"'
     },
     ssl: {
-      key: __dirname + '/server/ssl/server.key',
-      cert: __dirname + '/server/ssl/server.cert'
+      key: path.join(__dirname, '/server/ssl/server.key'),
+      cert: path.join(__dirname, '/server/ssl/server.cert')
     }
   },
   unittest: {

@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const EslintFriendlyFormatter = require('eslint-friendly-formatter');
 
 module.exports = (env) => {
   const minimizeCss = env === 'production';
@@ -70,7 +71,7 @@ module.exports = (env) => {
           loader: 'eslint-loader',
           options: {
             // eslint options (if necessary)
-            formatter: require('eslint-friendly-formatter')
+            formatter: EslintFriendlyFormatter
           }
         },
         {
