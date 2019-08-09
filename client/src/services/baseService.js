@@ -12,15 +12,15 @@ export default class BaseService {
 
     axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-    this.getUrl = function(options) {
+    this.getUrl = (options) => {
       return (options && options.pathMod)
-        ? `${this.baseUrl}/${options.pathMod}/${this.defaultPath}`
+        ? `${this.baseUrl}/${this.defaultPath}/${options.pathMod}`
         : this.defaultUrl;
     };
 
-    this.getAuthHeader = function() {
+    this.getAuthHeader = () => {
       return {
-        'x-access-token': getUserAccessToken()
+        Authorization: getUserAccessToken()
       };
     };
   }
@@ -44,9 +44,12 @@ export default class BaseService {
     const url = this.getUrl(options);
     const qs = parameters ? parameters.toQueryString() : '';
     const Type = this.type;
+    const headers = {
+      Authorization: getUserAccessToken(),
+    };
 
     return new Promise((resolve, reject) => {
-      axios.get(`${url}${qs}`, {}, this.getAuthHeader())
+      axios.get(`${url}${qs}`, {headers})
         .then((response) => {
           this.listResolver(resolve, response, Type);
         })
@@ -57,9 +60,12 @@ export default class BaseService {
   get(id, options) {
     const url = this.getUrl(options);
     const Type = this.type;
+    const headers = {
+      Authorization: getUserAccessToken(),
+    };
 
     return new Promise((resolve, reject) => {
-      axios.get(`${url}/${id}`, {}, this.getAuthHeader())
+      axios.get(`${url}/${id}`, {headers})
         .then(response => resolve(new Type(response.data)))
         .catch(err => reject(err));
     });
@@ -67,9 +73,12 @@ export default class BaseService {
 
   create(item, options) {
     const url = this.getUrl(options);
+    const headers = {
+      Authorization: getUserAccessToken(),
+    };
 
     return new Promise((resolve, reject) => {
-      axios.post(`${url}`, item, this.getAuthHeader())
+      axios.post(`${url}`, item, {headers})
         .then(response => resolve(response.data))
         .catch(err => reject(err));
     });
@@ -77,9 +86,12 @@ export default class BaseService {
 
   update(id, item, options) {
     const url = this.getUrl(options);
+    const headers = {
+      Authorization: getUserAccessToken(),
+    };
 
     return new Promise((resolve, reject) => {
-      axios.put(`${url}/${id}`, item, this.getAuthHeader())
+      axios.put(`${url}/${id}`, item, {headers})
         .then(response => resolve(response.data))
         .catch(err => reject(err));
     });
@@ -87,9 +99,12 @@ export default class BaseService {
 
   delete(id, options) {
     const url = this.getUrl(options);
+    const headers = {
+      Authorization: getUserAccessToken(),
+    };
 
     return new Promise((resolve, reject) => {
-      axios.delete(`${url}/${id}`, {}, this.getAuthHeader())
+      axios.delete(`${url}/${id}`, {headers})
         .then(response => resolve(response.data))
         .catch(err => reject(err));
     });

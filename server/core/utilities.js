@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const config = require('../../config');
 
 const algorithm = 'sha512';
-const salt = config.secret;
+const salt = config.clientSecret;
 const emailRegEx = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
 const encrypt = function(text){

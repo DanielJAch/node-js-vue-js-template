@@ -6,18 +6,11 @@ const NodeCache = require('node-cache');
 const cache = new NodeCache({ checkperiod: TOKEN_DURATION });
 const utilities = require('./utilities');
 const config = require('../../config');
-
-const _setTokenExpiration = function(user, duration) {
-  user.iat = Math.floor(Date.now() / 1000);
-  user.exp = Math.floor(Date.now() / 1000) + duration;
-
-  return jwt.sign(user, config.secret);
-};
+const userTokenKey = 'username'; // You can change this to ID or email address or some other property that uniquely identifies a user
 
 const errorHandler = (err, req, res, next) => { // eslint-disable-line no-unused-vars
-  // logger.error('SERVER ERROR:', err);
-
   let body;
+
   if (_.isObject(err)) {
     body = {
       name: err.name,
@@ -34,7 +27,7 @@ const errorHandler = (err, req, res, next) => { // eslint-disable-line no-unused
 
   res.status(err.status || 500);
 
-  //if the user was not logged in, and this was not an AJAX request, redirect to login
+  // If the user was not logged in, and this was not an AJAX request, redirect to login
   // TODO: You may want to change this depending on how you set up your authentication process!!
   if(err.status === 401 && !req.xhr) {
     return res.redirect('/login');
@@ -58,33 +51,47 @@ const errorHandler = (err, req, res, next) => { // eslint-disable-line no-unused
   return res.send('A server error has occurred.');
 };
 
+const _setTokenExpiration = (user, duration) => {
+  user.iat = Math.floor(Date.now() / 1000);
+  user.exp = Math.floor(Date.now() / 1000) + duration;
+
+  return jwt.sign(user, config.clientSecret);
+};
+
+const _checkBlackList = (key, token) => {
+  const blacklist = cache.get(key);
+
+  if (_.isArray(blacklist) && _.some(blacklist, function(t) { return t === token; })) {
+    throw new Error('Could not find token.');
+  }
+};
+
 const renewAuthToken = (user) => {
   return _setTokenExpiration(user, TOKEN_DURATION);
 };
 
-const expireAuthToken = (user) =>{
-  const blacklistedTokens = cache.get(user._id) || [];
+const expireAuthToken = (user) => {
+  const key = user[userTokenKey];
+  const blacklistedTokens = cache.get(key) || [];
 
   if (!_.some(blacklistedTokens, user.token)) {
     blacklistedTokens.push(user.token);
   }
 
-  cache.set(user._id, blacklistedTokens); // Blacklist the user token.
+  // Blacklist the user token.
+  cache.set(key, blacklistedTokens);
 
   return _setTokenExpiration(user, -(TOKEN_DURATION));
 };
 
-const checkAuthentication = (req, res, next) =>{
-  const token = req.headers['x-access-token'];
+const checkAuthentication = (req, res, next) => {
+  const token = req.headers['authorization'];
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, config.secret);
-      const blacklist = cache.get(decoded._id);
-
-      if (_.isArray(blacklist) && _.some(blacklist, function(t) { return t === token; })) {
-        throw new Error('Could not find token.');
-      }
+      const decoded = jwt.verify(token, config.clientSecret);
+      
+      _checkBlackList(decoded[userTokenKey], token);
 
       decoded.token = token;
       req.decoded = decoded;
@@ -99,9 +106,25 @@ const checkAuthentication = (req, res, next) =>{
   }
 };
 
+const getUserFromToken = (req, res, next) => {
+  const token = req.headers['authorization'];
+
+  if (token) {
+    const decoded = jwt.verify(token, config.clientSecret);
+
+    _checkBlackList(decoded[userTokenKey], token);
+
+    return decoded;
+
+  } else {
+    errorHandler(utilities.getHttpError('Failed to authenticate. No token provided.', 401), req, res, next);
+  }
+};
+
 module.exports = {
-  errorHandler: errorHandler,
-  checkAuthentication: checkAuthentication,
-  renewAuthToken: renewAuthToken,
-  expireAuthToken: expireAuthToken
+  errorHandler,
+  checkAuthentication,
+  renewAuthToken,
+  expireAuthToken,
+  getUserFromToken
 };

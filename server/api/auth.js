@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
 const utilities = require('../core/utilities');
 const middleware = require('../core/middleware');
+const identityModel = require('../models/identity');
 
 router.get('/', middleware.checkAuthentication, function(req, res) {
   if (!!req.decoded) {
@@ -23,20 +23,40 @@ router.post('/login', function(req, res, next) {
   }
 
   // TODO: Implement your own method of authenticating the user here, then return the token when successfully authenticating.
+
   const userObject = {
-    username: authInfo.username
+    username: authInfo.username,
+    name: 'User Name'
   };
   const token = middleware.renewAuthToken(userObject);
+  const identity = identityModel.toDto(userObject, token);
 
-  userObject.token = token;
+  res.json(identity);
+});
 
-  res.json(userObject);
+router.post('/refresh', middleware.checkAuthentication, function(req, res, next) {
+  const userObject = middleware.getUserFromToken(req, res, next);
+
+  // TODO: Look up the user in your repository and ensure that the user has not been disabled!!
+
+  const token = middleware.renewAuthToken(userObject);
+  const identity = identityModel.toDto(userObject, token);
+
+  res.json(identity);
+});
+
+router.get('/userinfo', middleware.checkAuthentication, function(req, res, next) {
+  const userObject = middleware.getUserFromToken(req, res, next);
+  const identity = identityModel.toDto(userObject);
+
+  res.json(userObject);  
 });
 
 router.get('/logout', middleware.checkAuthentication, function(req, res) {
   if (!!req.decoded) {
-    // TODO: Implement any other tasks require to expire the current user's token.
     middleware.expireAuthToken(req.decoded);
+
+    // TODO: Implement any other tasks required to expire the current user's token.
 
     res.json({ message: 'Successfully logged out.' });
   } else {

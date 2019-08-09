@@ -117,6 +117,8 @@
 <script>
 import authExampleService from '@/services/authenticatedExample.service'
 import exampleService from '@/services/example.service'
+import authService from '@/services/auth.service'
+import { setUserAccessToken } from '@/utilities';
 
 export default {
   data() {
@@ -133,12 +135,45 @@ export default {
         console.log(err);
       });
 
-    authExampleService.query()
+    authService.login('username', 'password')
       .then((result) => {
-        console.log('AUTHENTICATED EXAMPLE API REQUEST FINISHED');
+        console.log('USER HAS BEEN AUTHENTICATED!!');
+        setUserAccessToken(result.data.token);
+
+        authService.refreshToken()
+          .then((r) => {
+            console.log('USER TOKEN HAS BEEN REFRESHED!!');
+          })
+          .catch((err) => {
+            console.log(err.toJSON());
+          });
+
+        authService.getUser()
+          .then((r) => {
+            console.log('GOT USER!!');
+          })
+          .catch((err) => {
+            console.log(err.toJSON());
+          });
+
+        authExampleService.query()
+          .then((result) => {
+            console.log('AUTHENTICATED EXAMPLE API REQUEST FINISHED');
+          })
+          .catch((err) => {
+            console.log(err.toJSON());
+          });
+
+          authService.logout()
+            .then((result) => {
+              console.log('USER HAS BEEN LOGGED OUT');
+            })
+          .catch((err) => {
+            console.log(err.toJSON());
+          });
       })
       .catch((err) => {
-        console.log(err.toJSON());
+        console.log(err);
       });
   }
 };

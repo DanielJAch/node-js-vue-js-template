@@ -3,6 +3,9 @@
 const path = require('path');
 
 module.exports = {
+  clientId: 'YOUR CLIENT ID HERE',
+  clientSecret: 'YOUR CLIENT SECRET HERE',
+  scope: 'openid profile roles [myapi] offline_access',
   errorEmailAddress: '',
   emailConfig: {
     email: null,
