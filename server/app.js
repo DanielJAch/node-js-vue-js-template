@@ -51,6 +51,22 @@ switch (config.env) {
 
 console.log('------------Starting App in %s Environment------------', process.env.NODE_ENV);
 
+if (config.common.productionGzip && config.env === '"prod"' || config.env === '"production"' || config.env === '"staging"') {
+  app.get('*.js', function (req, res, next) {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    res.set('Content-Type', 'text/javascript');
+    next();
+  });
+
+  app.get('*.css', function(req, res, next) {
+    req.url = req.url + '.gz';
+    res.set('Content-Encoding', 'gzip');
+    res.set('Content-Type', 'text/css');
+    next();
+  });
+}
+
 // Body parsers - support parsing of JSON or UTF-8 urlencoded bodies (e.g. from a form).
 app.use(bodyParser.json({ limit: 52428800 }));
 app.use(bodyParser.urlencoded({
